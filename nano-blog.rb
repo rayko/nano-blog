@@ -1,10 +1,13 @@
 require 'sinatra'
 
-settings.default_content_type = 'application/json'
+set :default_content_type, 'application/json'
+set :views, './views'
+set :public_folder, './public'
 
 # TODO Return index.html
 get '/' do
-  'Boot complete'
+  content_type :html
+  erb :index
 end
 
 # TODO Prevent overloading (cache? rate limit?)
