@@ -4,6 +4,7 @@ source "https://rubygems.org"
 
 gem 'sinatra', require: false
 gem 'unicorn'
+gem 'rake'
 
 group :development do
   gem 'byebug'
