@@ -1,4 +1,26 @@
 body {
     background-color: black;
-    color: green
+    color: lawngreen;
+}
+
+pre {
+    margin: 0;
+    padding: 0;
+    font-size: 1.2em;
+}
+
+.error-level {
+    color: red;
+}
+
+.warn-level {
+    color: yellow;
+}
+
+.info-level {
+    color: lawngreen;
+}
+
+.debug-level {
+    color: silver;
 }

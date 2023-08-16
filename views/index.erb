@@ -9,8 +9,18 @@
 
   <body>
     <div>
-      <% NBLogger.new.tail(20).split("\n").each do |line| %>
-        <div><%= line %></div>
+      <% NBLogger.new.tail(100).split("\n").each do |line| %>
+        <div class="log-line">
+          <% if line =~ /ERROR/ %>
+            <pre class="error-level"><%= line %></pre>
+          <% elsif line =~ /DEBUG/ %>
+            <pre class="debug-level"><%= line %></pre>
+          <% elsif line =~ /WARN/ %>
+            <pre class="warn-level"><%= line %></pre>
+          <% else %>
+            <pre class="info-level"><%= line %></pre>
+          <% end %>
+        </div>
       <% end %>
     </div>
     <div><%= Time.now.utc %></div>

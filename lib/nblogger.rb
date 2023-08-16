@@ -30,7 +30,7 @@ class NBLogger
     lines = `tail -n #{size} #{LOGFILE}`
   end
 
-  def post(txt, level = :info, prog = nil)
-    @logger.log level, txt, prog
+  def post(txt, level = nil, prog = nil)
+    @logger.log (level || Logger::INFO), txt, prog
   end
 end
