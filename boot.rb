@@ -1,6 +1,7 @@
 require 'rubygems'
 require 'bundler/setup'
 require 'logger'
+require 'digest'
 
 APP_ENV = ENV['APP_ENV'] || 'development'
 APP_PATH = File.dirname(__FILE__)

@@ -12,7 +12,14 @@ end
 
 # TODO Prevent overloading (cache? rate limit?)
 get '/feed' do
-  NBLogger.new.tail(20)
+  logger = NBLogger.new
+  output = []
+  if params[:after].nil? || params[:after].empty?
+    output = logger.read(80)
+  else
+    output = logger.read(80, params[:after])
+  end
+  output.to_json
 end
 
 # TODO Secure this endpoint
