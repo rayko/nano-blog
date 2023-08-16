@@ -2,5 +2,9 @@
 
 source "https://rubygems.org"
 
-gem 'sinatra'
+gem 'sinatra', require: false
 gem 'unicorn'
+
+group :development do
+  gem 'byebug'
+end
