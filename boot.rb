@@ -13,3 +13,4 @@ Bundler.require(:defaut, APP_ENV.to_sym)
 $LOAD_PATH.unshift File.join(APP_PATH, 'lib')
 
 require 'nblogger'
+require 'store'

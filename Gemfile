@@ -3,6 +3,7 @@
 source "https://rubygems.org"
 
 gem 'sinatra', require: false
+gem 'sinatra-contrib', require: false
 gem 'unicorn'
 gem 'rake'
 
