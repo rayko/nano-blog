@@ -25,20 +25,24 @@ class Store
 
   def add_system_name!(name)
     return nil if name.nil? || name.empty?
+    return nil if system_names.include?(name.upcase.strip)
 
     items = system_names
     items << name.upcase.strip
     items.uniq!
     write! 'system_names.json', items.to_json
+    NBLogger.new.append("Registring new system: #{name.upcase.strip}", 'INFO', 'MONITOR')
     nil
   end
 
   def remove_system_name!(name)
     return nil if name.nil? || name.empty?
+    return nil unless system_names.include?(name.upcase.strip)
 
     items = system_names
     items.delete name.upcase.strip
     write! 'system_names.json', items.to_json
+    NBLogger.new.append("De-registring system: #{name.upcase.strip}", 'INFO', 'MONITOR')
     nil
   end
 
