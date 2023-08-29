@@ -2,6 +2,7 @@ require 'rubygems'
 require 'bundler/setup'
 require 'logger'
 require 'digest'
+require 'json'
 
 APP_ENV = ENV['APP_ENV'] || 'development'
 APP_PATH = File.dirname(__FILE__)
@@ -14,3 +15,4 @@ $LOAD_PATH.unshift File.join(APP_PATH, 'lib')
 
 require 'nblogger'
 require 'store'
+require 'init_procedure'

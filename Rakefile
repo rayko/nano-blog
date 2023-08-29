@@ -5,6 +5,10 @@ task :environment do
   require File.join(File.dirname(__FILE__), 'boot')
 end
 
+task run_init: :environment do
+  InitProcedure.new.run!
+end
+
 desc 'Opens a console to interact with the application'
 task console: :environment do
   require 'irb'

@@ -15,6 +15,14 @@ class Store
     fetch('system_names.json') || []
   end
 
+  def set_subject_info(name)
+    write! 'subject.json', { 'name' => name }.to_json
+  end
+
+  def subject_info
+    fetch('subject.json') || { 'name' => 'UNKNOWN'}
+  end
+
   def add_system_name!(name)
     return nil if name.nil? || name.empty?
 
