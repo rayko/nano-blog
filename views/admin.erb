@@ -15,7 +15,7 @@
         <div class="form-title">Generic Post</div>
         <form class="common-form" action="/admin/generic-push" method="post">
           <select name="severity">
-            <% store.severity_items.each do |item| %>
+            <% NBLogger::SEVERITIES.each do |item| %>
               <option value="<%= item %>"><%= item %></option>
             <% end %>
           </select>

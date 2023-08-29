@@ -35,8 +35,7 @@ namespace '/admin' do
     system_name = params[:subsystem]
     message = params[:message]
     logger = NBLogger.new
-    level = NBLogger::SEVERITY_MAP.fetch(severity.downcase.strip, Logger::INFO)
-    logger.post(message, level, system_name)
+    logger.append(message, severity, system_name)
     redirect '/admin/index'
   end
 

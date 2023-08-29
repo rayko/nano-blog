@@ -8,7 +8,7 @@ class Store
   end
 
   def severity_items
-    %w[info warn debug error fatal unknown]
+    NBLogger::SEVERITIES
   end
 
   def system_names
