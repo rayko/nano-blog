@@ -7,19 +7,22 @@ task :environment do
   require File.join(File.dirname(__FILE__), 'boot')
 end
 
-desc 'Setups database if not existent and loads initial data'
-task :load_schema do
-  puts 'Setting up database ... '
+namespace :db do
+  desc 'Setups database if not existent and loads initial data'
+  task :setup do
+    puts 'Setting up database ... '
 
-  require 'sqlite3'
-  require 'sequel'
-  load 'schema.rb'
+    require 'sqlite3'
+    require 'sequel'
+    load 'schema.rb'
 
-  Schema.new.setup!
+    Schema.new.setup!
 
-  puts 'Database Ready!'
+    puts 'Database Ready!'
+  end
 end
 
+desc 'Writes some log entries on boot'
 task run_init: :environment do
   InitProcedure.new.run!
 end

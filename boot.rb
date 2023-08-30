@@ -28,3 +28,4 @@ require 'init_procedure'
 
 require 'models/log_entry'
 require 'models/component'
+require 'models/log_entry_template'

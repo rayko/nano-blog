@@ -11,6 +11,7 @@ class Schema
   def setup!
     setup_components!
     setup_log_entries!
+    setup_log_entry_templates!
   end
 
   def db
@@ -18,6 +19,19 @@ class Schema
   end
 
   private
+
+  def setup_log_entry_templates!
+    name = :log_entry_templates
+    return nil if db.table_exists?(name)
+
+    puts "Missing table #{name}, creating ..."
+    db.create_table(name) do
+      primary_key :id
+      String :severity
+      String :component
+      String :message_tempalte
+    end
+  end
 
   def setup_components!
     name = :components
@@ -33,6 +47,8 @@ class Schema
 
   def setup_log_entries!
     name = :log_entries
+    return nil if db.table_exists?(name)
+
     puts "Missing table #{name}, creating ..."
     db.create_table(name) do
       primary_key :id
