@@ -10,9 +10,21 @@ LOG_LEVEL = (ENV['LOG_LEVEL'] || '0').to_i
 LOGGER = Logger.new('log/nano-blog.log')
 LOGGER.level = LOG_LEVEL
 
-Bundler.require(:defaut, APP_ENV.to_sym)
+DB_DIR = 'db/'.freeze
+DB_FILE = File.join(DB_DIR, 'nanoBlog.db').freeze
+
+Bundler.setup(:default, APP_ENV.to_sym)
 $LOAD_PATH.unshift File.join(APP_PATH, 'lib')
+$LOAD_PATH.unshift File.join(APP_PATH)
+
+require 'sqlite3'
+require 'sequel'
+
+Sequel.sqlite(DB_FILE)
 
 require 'nblogger'
 require 'store'
 require 'init_procedure'
+
+require 'models/log_entry'
+require 'models/component'

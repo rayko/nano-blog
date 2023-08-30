@@ -1,8 +1,23 @@
 task default: :console
 
+
+
 desc 'Loads the environment for the application'
 task :environment do
   require File.join(File.dirname(__FILE__), 'boot')
+end
+
+desc 'Setups database if not existent and loads initial data'
+task :load_schema do
+  puts 'Setting up database ... '
+
+  require 'sqlite3'
+  require 'sequel'
+  load 'schema.rb'
+
+  Schema.new.setup!
+
+  puts 'Database Ready!'
 end
 
 task run_init: :environment do

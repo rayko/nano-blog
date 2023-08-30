@@ -12,6 +12,7 @@ GEM
     raindrops (0.20.1)
     rake (13.0.6)
     ruby2_keywords (0.0.5)
+    sequel (5.71.0)
     sinatra (3.1.0)
       mustermann (~> 3.0)
       rack (~> 2.2, >= 2.2.4)
@@ -23,6 +24,7 @@ GEM
       rack-protection (= 3.1.0)
       sinatra (= 3.1.0)
       tilt (~> 2.0)
+    sqlite3 (1.6.4-x86_64-linux)
     tilt (2.2.0)
     unicorn (6.1.0)
       kgio (~> 2.6)
@@ -34,8 +36,10 @@ PLATFORMS
 DEPENDENCIES
   byebug
   rake
+  sequel
   sinatra
   sinatra-contrib
+  sqlite3
   unicorn
 
 BUNDLED WITH
