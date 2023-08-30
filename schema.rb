@@ -29,7 +29,7 @@ class Schema
       primary_key :id
       String :severity
       String :component
-      String :message_tempalte
+      String :message_template
     end
   end
 

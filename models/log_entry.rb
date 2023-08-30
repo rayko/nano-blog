@@ -19,8 +19,6 @@ class LogEntry < Sequel::Model
       entry.save
     end
 
-    private
-
     def find_severity!(severity)
       name = severity.upcase
 
