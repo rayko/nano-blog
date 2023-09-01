@@ -1,0 +1,32 @@
+body {
+    background-color: black;
+    color: lawngreen;
+    overflow: hidden;
+}
+
+pre {
+    margin: 0;
+    padding: 0;
+    font-size: 1.2em;
+    text-wrap: wrap !important;
+}
+
+.critical-level {
+    color: red;
+}
+
+.error-level {
+    color: red;
+}
+
+.warn-level {
+    color: yellow;
+}
+
+.info-level {
+    color: lawngreen;
+}
+
+.debug-level {
+    color: silver;
+}
