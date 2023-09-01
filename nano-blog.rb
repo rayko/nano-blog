@@ -23,6 +23,14 @@ get '/feed' do
   output.to_json
 end
 
+get '/control' do
+  redirect '/control/index'
+end
+
+get '/control/' do
+  redirect '/control/index'
+end
+
 # TODO This needs to be behind security
 namespace '/control' do
   get '/index' do
@@ -39,17 +47,21 @@ namespace '/control' do
     redirect '/control/index'
   end
 
-  post '/create-sub-system' do
-    new_name = params[:name]
-    store = Store.new
-    store.add_system_name!(new_name)
+  post '/components'do
+    name = (params[:name] || '').upcase.strip
+    unless name == '' || Component.where(name: name).any?
+      Component.create(name: name)
+    end
     redirect '/control/index'
   end
 
-  post '/delete-sub-system' do
-    new_name = params[:name]
-    store = Store.new
-    store.remove_system_name!(new_name)
+  delete '/components/:id' do
+    component_id = params[:id].to_i
+    component = Component.where(id: component_id).first
+    if component
+      component.delete
+    end
     redirect '/control/index'
   end
+
 end

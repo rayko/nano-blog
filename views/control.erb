@@ -34,24 +34,27 @@
 
       <div class="form-container">
         <div class="form-title">Add Component Name</div>
-        <form class="common-form" action="/control/create-sub-system" method="post">
+        <form class="common-form" action="/control/components" method="post">
           <input type="text" id="name" name="name" placeholder="Enter name">
           <input type="submit" value="Add">
         </form>
       </div>
 
       <div class="form-container">
-        <div class="form-title">Delete Sub-System Name</div>
-        <form class="common-form" action="/control/delete-sub-system" method="post">
-          <select name="name">
-            <option value="" selected></option>
-            <% Component.each do |item| %>
-              <% next if item.name == 'MONITOR' %>
-              <option value="<%= item.id %>"><%= item.name %></option>
-            <% end %>
-          </select>
-          <input type="submit" value="Delete">
-        </form>
+        <div class="form-title">Components</div>
+        <ul class="record-list">
+          <% Component.all.each do |item| %>
+            <% next if item.name == 'MONITOR' %>
+            <li class="record-item">
+              <%= item.id %> -
+              <%= item.name %> -
+              <form action="/control/components/<%= item.id %>" method="post">
+                <input type="hidden" name="_method" value="DELETE">
+                <input class="delete-buttom" type="submit" value="Remove">
+              </form>
+            </li>
+          <% end %>
+        </ul>
       </div>
 
       <div class="generic-post-form-container">
