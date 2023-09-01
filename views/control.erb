@@ -2,9 +2,9 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>NanoBlog Admin</title>
-    <script src="/assets/admin.js"></script>
-    <link href="/assets/admin.css" rel="stylesheet">
+    <title>NanoBlog Control</title>
+    <script src="/assets/control.js"></script>
+    <link href="/assets/control.css" rel="stylesheet">
   </head>
 
   <body>
@@ -13,7 +13,7 @@
       
       <div class="form-container">
         <div class="form-title">Generic Post</div>
-        <form class="common-form" action="/admin/generic-push" method="post">
+        <form class="common-form" action="/control/generic-push" method="post">
           <select name="severity">
             <% NBLogger::SEVERITIES.each do |item| %>
               <option value="<%= item %>"><%= item %></option>
@@ -34,7 +34,7 @@
 
       <div class="form-container">
         <div class="form-title">Add Sub-System Name</div>
-        <form class="common-form" action="/admin/create-sub-system" method="post">
+        <form class="common-form" action="/control/create-sub-system" method="post">
           <input type="text" id="name" name="name" placeholder="Enter name">
           <input type="submit" value="Add">
         </form>
@@ -42,7 +42,7 @@
 
       <div class="form-container">
         <div class="form-title">Delete Sub-System Name</div>
-        <form class="common-form" action="/admin/delete-sub-system" method="post">
+        <form class="common-form" action="/control/delete-sub-system" method="post">
           <select name="name">
             <option value="" disabled selected hidden>sub-system</option>
             <% store.system_names.each do |item| %>
