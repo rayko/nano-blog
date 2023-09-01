@@ -24,10 +24,10 @@ get '/feed' do
 end
 
 # TODO This needs to be behind security
-namespace '/admin' do
+namespace '/control' do
   get '/index' do
     content_type :html
-    erb :admin, locals: { store: Store.new }
+    erb :control, locals: { store: Store.new }
   end
 
   post '/generic-push' do
@@ -36,20 +36,20 @@ namespace '/admin' do
     message = params[:message]
     logger = NBLogger.new
     logger.append(message, severity, system_name)
-    redirect '/admin/index'
+    redirect '/control/index'
   end
 
   post '/create-sub-system' do
     new_name = params[:name]
     store = Store.new
     store.add_system_name!(new_name)
-    redirect '/admin/index'
+    redirect '/control/index'
   end
 
   post '/delete-sub-system' do
     new_name = params[:name]
     store = Store.new
     store.remove_system_name!(new_name)
-    redirect '/admin/index'
+    redirect '/control/index'
   end
 end
