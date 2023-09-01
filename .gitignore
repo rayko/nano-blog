@@ -19,8 +19,6 @@ config/unicorn.rb
 *#*#*
 .DS_Store
 *.swp
-public/assets
-public/system
 *.iml
 dump.rdb
 .byebug_history
