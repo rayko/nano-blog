@@ -34,4 +34,17 @@ class LogEntry < Sequel::Model
 
   end
 
+  def to_message
+    return "[#{date}] -- #{severity} -> #{message}" unless component?
+    "[#{date}] -- #{severity} -- #{component} -> #{message}"
+  end
+
+  def date
+    Time.at(timestamp).utc.strftime('%Y-%m-%d %H:%M:%S UTC')
+  end
+
+  def component?
+    !(component.nil? || component == '')
+  end
+
 end

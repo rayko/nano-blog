@@ -25,13 +25,13 @@ body {
     text-align: center;
 }
 
-.record-item form {
+form.delete-record-form {
     color: red;
     display: inline;
     padding: 0;
 }
 
-.record-item form .delete-button {
+form.delete-record-form  .delete-button {
     border: none;
     background-color: transparent;
     color: blue;
@@ -41,10 +41,46 @@ body {
     cursor: pointer;
 }
 
-.record-item form .delete-button:hover{
+.template-item form .delete-button {
+    border: none;
+    background-color: transparent;
+    color: blue;
+    padding: 0;
+    font-size: 1em;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+form.delete-record-form .delete-button:hover{
     color: red;
 }
 
 .record-list {
     list-style: none;
+}
+
+.columns {
+    display: flex;
+}
+
+.columns .column {
+    display: inline;
+    margin-left: auto;
+    margin-right: auto;
+    width: 49%;
+}
+
+form.template-form {
+    display: inline;
+    padding: 0;
+    margin: 0;
+}
+
+form.template-form .template-input-box {
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    background-color: transparent;
+    border-bottom: 1px dotted gray;
+    width: 8em;
 }

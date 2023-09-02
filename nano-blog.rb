@@ -47,6 +47,24 @@ namespace '/control' do
     redirect '/control/index'
   end
 
+  post '/template-push' do
+    template = LogEntryTemplate.where(id: params[:template_id]).first
+    return redirect('/control/index') unless template
+
+    message_template = template.message_template
+    parts = {}
+    message_template.scan(/\{[a-z0-9\-_]+\}/).each do |var_name|
+      param_name = var_name[1..-2].to_sym
+      parts[var_name] = params[param_name]
+    end
+
+    return redirect('/control/index') if parts.keys.any? && (parts.values.include?(nil) || parts.values.include?(''))
+
+    parts.each{ |name, val| message_template.gsub!(name, val) }
+    LogEntry.post! message_template, template.severity, template.component_id
+    redirect '/control/index'
+  end
+
   post '/components'do
     name = (params[:name] || '').upcase.strip
     unless name == '' || Component.where(name: name).any?
@@ -60,6 +78,31 @@ namespace '/control' do
     component = Component.where(id: component_id).first
     if component
       component.delete
+    end
+    redirect '/control/index'
+  end
+
+  post '/log-entry-templates' do
+    severity = params[:severity] || ''
+    component_id = (params[:component_id] || '').to_i
+    component = Component.where(id: component_id).first
+    msg = params[:message] || ''
+
+    unless severity == '' || msg == ''
+      template = LogEntryTemplate.new severity: severity
+      template.component = component.name if component
+      template.message_template = msg
+      template.save
+    end
+
+    redirect '/control/index'
+  end
+
+  delete '/log-entry-templates/:id' do
+    template_id = params[:id].to_i
+    template = LogEntryTemplate.where(id: template_id).first
+    if template
+      template.delete
     end
     redirect '/control/index'
   end

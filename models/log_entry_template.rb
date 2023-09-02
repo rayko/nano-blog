@@ -30,4 +30,11 @@ class LogEntryTemplate < Sequel::Model
 
   end
 
+  def component_id
+    return nil if component.nil? || component == ''
+    record = Component.where(name: component).first
+    return nil unless record
+    record.id
+  end
+
 end
