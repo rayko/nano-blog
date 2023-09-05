@@ -40,10 +40,10 @@ namespace '/control' do
 
   post '/generic-push' do
     severity = params[:severity]
-    system_name = params[:subsystem]
+    component_id = params[:component_id]
+    component = Component.where(id: component_id).first
     message = params[:message]
-    logger = NBLogger.new
-    logger.append(message, severity, system_name)
+    LogEntry.post! message, severity, component_id
     redirect '/control/index'
   end
 
