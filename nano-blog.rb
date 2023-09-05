@@ -13,13 +13,13 @@ end
 
 # TODO Prevent overloading (cache? rate limit?)
 get '/feed' do
-  logger = NBLogger.new
   output = []
-  if params[:after].nil? || params[:after].empty?
-    output = logger.read(80)
-  else
-    output = logger.read(80, params[:after])
+  after_id = params[:after_id].to_i
+  if after_id == 0
+    last_entry = LogEntry.last
+    after_id = (last_entry ? last_entry.id - 80 : 0)
   end
+  LogEntry.where{id > after_id}.each { |entry| output << { id: entry.id, message: entry.to_message, severity: entry.severity} }
   output.to_json
 end
 

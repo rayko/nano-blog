@@ -38,6 +38,19 @@ class LogEntry < Sequel::Model
     return "[#{date}] -- #{severity} -> #{message}" unless component?
     "[#{date}] -- #{severity} -- #{component} -> #{message}"
   end
+  
+  def to_h
+    {
+      timestamp: date,
+      severity: severity,
+      component: component,
+      message: message
+    }
+  end
+
+  def to_json
+    to_h.to_json
+  end
 
   def date
     Time.at(timestamp).utc.strftime('%Y-%m-%d %H:%M:%S UTC')
@@ -46,5 +59,4 @@ class LogEntry < Sequel::Model
   def component?
     !(component.nil? || component == '')
   end
-
 end

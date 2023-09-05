@@ -1,10 +1,10 @@
-window.lastMessageHash = null;
+window.lastMessageID = null;
 window.addEventListener('load', triggerFeeder, false )
 
 function getMessages() {
   path = "/feed";
-  if (window.lastMessageHash) {
-    path += "?after=" + window.lastMessageHash;
+  if (window.lastMessageID) {
+    path += "?after_id=" + window.lastMessageID;
   }
 
   fetch(path).then(function(response) {
@@ -25,15 +25,13 @@ function processData(data) {
   if (data) {
     targetElement = document.getElementById('messages-container');
     for (let index = 0; index < data.length; index ++) {
+      window.lastMessageID = data[index].id;
+
       innerMessage = document.createElement('pre');
-      innerMessage.setAttribute('data-hash', data[index].hash);
+      innerMessage.setAttribute('data-hash', data[index].id);
       innerMessage.setHTML(data[index].message);
-      window.lastMessageHash = data[index].hash;
-      if (data[index].level) {
-        innerMessage.className = data[index].level.toLowerCase() + '-level'
-      } else {
-        innerMessage.className = 'generic-level';
-      }
+      innerMessage.className = severityClassName(data[index].severity)
+
       messageContainer = document.createElement('div');
       messageContainer.append(innerMessage);
       targetElement.append(messageContainer);
@@ -41,4 +39,15 @@ function processData(data) {
   }
   window.scrollTo(0, document.body.scrollHeight);
   window.setTimeout(getMessages, 30000);
+}
+
+function severityClassName(name) {
+  if (name == 'INFO') { return 'info-level' }
+  if (name == 'WARN') { return 'warn-level' }
+  if (name == 'DEBUG') { return 'debug-level' }
+  if (name == 'CRIT') { return 'critical-level' }
+  if (name == 'ERROR') { return 'error-level' }
+  if (name == '???') { return 'unknown-level' }
+
+  return 'generic-level'
 }
