@@ -37,4 +37,32 @@ class LogEntryTemplate < Sequel::Model
     record.id
   end
 
+  def to_h
+    {
+      id: id,
+      component: component,
+      component_id: component_id,
+      severity: severity,
+      message_template: message_template
+    }
+  end
+
+  def to_json
+    to_h.to_json
+  end
+
+  def validate
+    super
+    errors.add(:severity, "can't be empty") if severity.blank?
+    errors.add(:message_template, "can't be empty") if message_template.blank?
+    unless component.blank?
+      errors.add(:component, "doesn't exist") unless Component.where(name: component.upcase).first
+    end
+  end
+
+  def before_save
+    super
+    self.component = self.component.upcase unless self.component.blank?
+    self.severity = self.severity.upcase
+  end
 end

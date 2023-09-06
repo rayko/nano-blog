@@ -9,16 +9,6 @@ class LogEntry < Sequel::Model
   SEVERITIES = [INFO, WARN, DEBUG, CRIT, ERROR, UNKNOWN]
 
   class << self
-
-    def post!(message, severity, component_id = nil)
-      entry = new(timestamp: Time.now.to_i)
-      entry.component = Component.fetch!(component_id).name if component_id
-      entry.severity = find_severity!(severity)
-      entry.message = message
-
-      entry.save
-    end
-
     def find_severity!(severity)
       name = severity.upcase
 
@@ -31,7 +21,6 @@ class LogEntry < Sequel::Model
 
       raise ArgumentError, "Invalid severity: #{severity}"
     end
-
   end
 
   def to_message
@@ -56,7 +45,18 @@ class LogEntry < Sequel::Model
     Time.at(timestamp).utc.strftime('%Y-%m-%d %H:%M:%S UTC')
   end
 
-  def component?
-    !(component.nil? || component == '')
+  def validate
+    super
+    errors.add(:severity, "can't be empty") if severity.blank?
+    errors.add(:message, "can't be empty") if message_template.blank?
+    unless component.blank?
+      errors.add(:component, "doesn't exist") unless Component.where(name: component.upcase).first
+    end
+  end
+
+  def before_save
+    super
+    self.component = self.component.upcase unless self.component.blank?
+    self.severity = self.severity.upcase
   end
 end

@@ -25,7 +25,11 @@ Sequel.sqlite(DB_FILE)
 require 'nblogger'
 require 'store'
 require 'init_procedure'
+require 'json_payload'
+require 'extensions/blank'
 
 require 'models/log_entry'
 require 'models/component'
 require 'models/log_entry_template'
+
+Object.include(Extensions::Blank)

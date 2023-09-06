@@ -1,9 +1,12 @@
 require 'sinatra'
 require "sinatra/namespace"
+require 'backend_api'
 
 set :default_content_type, 'application/json'
 set :views, './views'
 set :public_folder, './public'
+
+use BackendAPI
 
 # TODO Return index.html
 get '/' do
