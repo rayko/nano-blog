@@ -6,7 +6,9 @@ set :default_content_type, 'application/json'
 set :views, './views'
 set :public_folder, './public'
 
-use BackendAPI
+use API::Components
+use API::LogEntries
+use API::LogEntryTemplates
 
 # TODO Return index.html
 get '/' do
