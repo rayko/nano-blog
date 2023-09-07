@@ -69,22 +69,22 @@ namespace '/control' do
     redirect '/control/index'
   end
 
-  post '/components'do
-    name = (params[:name] || '').upcase.strip
-    unless name == '' || Component.where(name: name).any?
-      Component.create(name: name)
-    end
-    redirect '/control/index'
-  end
+  # post '/components'do
+  #   name = (params[:name] || '').upcase.strip
+  #   unless name == '' || Component.where(name: name).any?
+  #     Component.create(name: name)
+  #   end
+  #   redirect '/control/index'
+  # end
 
-  delete '/components/:id' do
-    component_id = params[:id].to_i
-    component = Component.where(id: component_id).first
-    if component
-      component.delete
-    end
-    redirect '/control/index'
-  end
+  # delete '/components/:id' do
+  #   component_id = params[:id].to_i
+  #   component = Component.where(id: component_id).first
+  #   if component
+  #     component.delete
+  #   end
+  #   redirect '/control/index'
+  # end
 
   post '/log-entry-templates' do
     severity = params[:severity] || ''
