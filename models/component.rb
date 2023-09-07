@@ -28,6 +28,6 @@ class Component < Sequel::Model
 
   def before_save
     super
-    name = name.upcase
+    self.name = self.name.upcase unless self.name.blank?
   end
 end
