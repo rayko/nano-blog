@@ -35,7 +35,7 @@ module API
         halt 423 if record.name == 'MONITOR'
 
         record.destroy
-        [200, {}, '']
+        [200, {}, '{}']
       end
     end
 
