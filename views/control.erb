@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>NanoBlog Control</title>
     <script src="/assets/api_client.js"></script>
+    <script src="/assets/components.js"></script>
     <script src="/assets/control.js"></script>
     <link href="/assets/control.css" rel="stylesheet">
   </head>
@@ -51,22 +52,7 @@
         </div>
 
         <div class="column">
-          <div class="form-container">
-            <div class="form-title">Components</div>
-            <ul class="record-list">
-              <% Component.all.each do |item| %>
-              <% next if item.name == 'MONITOR' %>
-              <li class="record-item">
-                <%= item.id %> -
-                <%= item.name %> -
-                <form class="delete-record-form" action="/control/components/<%= item.id %>" method="post">
-                  <input type="hidden" name="_method" value="DELETE">
-                  <input class="delete-button" type="submit" value="Remove">
-                </form>
-              </li>
-              <% end %>
-            </ul>
-          </div>
+          <%= erb :_components_list %>
         </div>
 
       </div>

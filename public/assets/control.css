@@ -2,7 +2,7 @@ body {
     font-family: "monospace";
 }
 
-.form-container {
+.panel {
     margin-bottom: 2em;
     border: 1px solid #e1be59;
     border-radius: 5px;
@@ -18,6 +18,26 @@ body {
     text-align: center;
     border-radius: 5px 5px 0 0;
 }
+
+.panel .title {
+    background-color: #eddbaa;
+    padding: 3px 10px 3px 10px;
+    text-align: center;
+    border-radius: 5px 5px 0 0;
+}
+
+
+.form-container {
+    margin-bottom: 2em;
+    border: 1px solid #e1be59;
+    border-radius: 5px;
+    padding: 0;
+    display: block;
+    background-color: #fdf1cf;
+    box-shadow: 2px 2px 4px 1px #dbdbdb;
+}
+
+
 
 .form-container form {
     padding: 10px;
