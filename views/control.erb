@@ -5,6 +5,7 @@
     <title>NanoBlog Control</title>
     <script src="/assets/api_client.js"></script>
     <script src="/assets/components.js"></script>
+    <script src="/assets/log_entry_templates.js"></script>
     <script src="/assets/control.js"></script>
     <link href="/assets/control.css" rel="stylesheet">
   </head>
@@ -60,42 +61,26 @@
 
       <div class="form-container">
         <div class="form-title">Add Template</div>
-        <form class="common-form" action="/control/log-entry-templates" method="post">
+        <form id="create-log-entry-template-form" class="common-form" action="/control/api/log-entry-templates" method="post">
           <select name="severity">
             <% LogEntry::SEVERITIES.each do |item| %>
               <option value="<%= item %>"><%= item %></option>
             <% end %>
           </select>
 
-          <select name="component_id">
+          <select name="component">
             <option value="" selected></option>
             <% Component.all.each do |item| %>
-              <option value="<%= item.id %>"><%= item.name %></option>
+              <option value="<%= item.name %>"><%= item.name %></option>
             <% end %>
           </select>
 
-          <input type="text" id="message" name="message" placeholder="Message here" size=80>
+          <input type="text" id="message_template" name="message_template" placeholder="Message here" size=80>
           <input type="submit" value="Add">
         </form>
       </div>
 
-      <div class="form-container">
-        <div class="form-title">Templates</div>
-        <ul class="record-list">
-          <% LogEntryTemplate.all.each do |item| %>
-          <li class="template-item" data-id="<%= item.id %>" data-severity="<%= item.severity %>" data-component="<%= item.component %>" data-template="<%= item.message_template %>">
-            <a href="#" class="push-form-template">PUSH</a> -
-            <form class="delete-record-form" action="/control/log-entry-templates/<%= item.id %>" method="post">
-              <input type="hidden" name="_method" value="DELETE">
-              <input class="delete-button" type="submit" value="Remove">
-            </form>
-            <span class="template-form-container"></span>
-            <hr />
-          </li>
-          <% end %>
-        </ul>
-      </div>
-
+      <%= erb :_log_entry_templates %>
 
     </div>
   </body>

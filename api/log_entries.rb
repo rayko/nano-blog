@@ -9,6 +9,7 @@ module API
     namespace '/control/api' do
       post '/log-entries' do
         attrs = JSONPayload.new(request.body.read).parse!
+        attrs[:timestamp] = Time.now.to_i
         record = LogEntry.new(attrs)
         begin
           record.save
@@ -28,7 +29,7 @@ module API
         record = LogEntry.last
         halt 404 unless record
         record.destroy
-        [200, {}, '']
+        [200, {}, '{}']
       end
     end
 

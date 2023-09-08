@@ -9,6 +9,9 @@ function initialize () {
 
   components.formElement().addEventListener('submit', components.createAction);
   components.refresh();
+
+  logEntryTemplates.formElement().addEventListener('submit', logEntryTemplates.createAction)
+  logEntryTemplates.refresh();
 }
 
 function buildTemplateForm(element) {

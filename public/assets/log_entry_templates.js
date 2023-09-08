@@ -1,0 +1,169 @@
+window.logEntryTemplates = {
+
+  formElement: function() {
+    return document.getElementById('create-log-entry-template-form');
+  },
+
+  element: function() {
+    return document.getElementById('log-entry-template-records');
+  },
+
+  refresh: function() {
+    path = logEntryTemplates.element().getAttribute('data-path');
+    apiGET(path, logEntryTemplates.load, logEntryTemplates.requestError);
+  },
+
+  requestError: function(status) {
+    alert(status);
+  },
+
+  // Create template, not post from tempalte
+  create: function() {
+    formData = new FormData(logEntryTemplates.formElement());
+    data = { 
+      severity: formData.get('severity'),
+      component: formData.get('component'),
+      message_template: formData.get('message_template')
+    };
+    path = logEntryTemplates.formElement().getAttribute('action');
+    apiPOST(path, data, function(data) {
+      logEntryTemplates.refresh();
+      logEntryTemplates.formElement().reset();
+    }, logEntryTemplates.requestError);
+  },
+
+  load: function(data) {
+    logEntryTemplates.element().innerHTML = '';
+    for (let i = 0; i < data.length; i++) {
+      item = logEntryTemplates.buildItem(data[i]);
+      logEntryTemplates.element().appendChild(item);
+    }
+  },
+
+  buildItem: function(record) {
+    itemContainer = document.createElement('div');
+    itemContainer.className = 'record-item';
+    itemContainer.setAttribute('data-id', record.id);
+
+    form = document.createElement('form');
+    form.className = 'template-form';
+    form.method = 'post';
+    form.action = '/control/api/log-entries';
+
+    span = document.createElement('span');
+    span.innerHTML = record.id + ' -- ' + record.severity;
+    if (record.component) {
+      span.innerHTML += ' -- ' + record.component;
+    }
+    span.innerHTML += ' -> ';
+    form.appendChild(span);
+
+    hiddenField = document.createElement('input');
+    hiddenField.type = 'hidden';
+    hiddenField.name = 'severity';
+    hiddenField.value = record.severity;
+    form.appendChild(hiddenField);
+
+    if (record.component) {
+      hiddenField = document.createElement('input');
+      hiddenField.type = 'hidden';
+      hiddenField.name = 'component';
+      hiddenField.value = record.component;
+      form.appendChild(hiddenField);
+    }
+
+    templateMessage = record.message_template;
+    regex = new RegExp(`{[a-z0-9_]+}`, 'g');
+
+    words = templateMessage.split(' ');
+    elements = [];
+    span = document.createElement('span');
+    for (let i = 0; i < words.length; i ++) {
+      word = words[i];
+      if (word.search(regex) >= 0){
+        // New span for next words
+        elements.push(span);
+        span = document.createElement('span');
+        span.innerHTML = ' ';
+
+        // Input
+        inputName = word.replace('{', '');
+        inputName = inputName.replace('}', '');
+        variableInput = document.createElement('input');
+        variableInput.type = 'text';
+        variableInput.name = inputName;
+        variableInput.className = 'template-input-box';
+        variableInput.placeholder = inputName + ' ...';
+        elements.push(variableInput);
+
+      } else {
+        // Normal word
+        span.innerHTML += word + ' ';
+      }
+    }
+
+    if (span.innerHTML != '' && span.innerHTML != null) {
+      elements.push(span);
+    }
+
+    // Append all created spans and variable inputs to form
+    for (let i = 0; i < elements.length; i ++) {
+      item = elements[i];
+      form.appendChild(item);
+    }
+
+    pushButton = document.createElement('input');
+    pushButton.className = 'action-button push';
+    pushButton.type = 'submit';
+    pushButton.value = 'Post';
+    form.appendChild(pushButton);
+    form.addEventListener('submit', logEntryTemplates.postAction);
+
+    itemContainer.appendChild(form);
+
+    removeLink = document.createElement('a');
+    removeLink.className = 'action-link delete';
+    removeLink.setAttribute('href', '/control/api/log-entry-templates/' + record.id);
+    removeLink.innerHTML = 'Remove';
+    removeLink.addEventListener('click', logEntryTemplates.removeAction);
+    itemContainer.appendChild(removeLink);
+
+    return itemContainer;
+  },
+
+  postAction: function(event) {
+    event.preventDefault();
+    formData = new FormData(this);
+    data = {severity: null, component: null, message: ''};
+    for (const attr of formData.entries()) {
+      if (attr[0] == 'severity') { 
+        data.severity = attr[1] 
+      } else if (attr[0] == 'component') { 
+        data.component = attr[1] 
+      } else {
+        data.message += attr[1] + ' ' 
+      }
+    }
+    data.message = data.message.trim();
+    path = this.getAttribute('action');
+    targetForm = this;
+    apiPOST(path, data, function(data) {
+      targetForm.reset();
+    }, logEntryTemplates.requestError)
+  },
+
+  createAction: function(event) {
+    logEntryTemplates.create();
+    event.preventDefault();
+  },
+
+  removeAction: function(event) {
+    event.preventDefault();
+    targetElement = this.parentElement;
+    path = this.getAttribute('href');
+    apiDELETE(path, function(data) {
+      targetElement.remove();
+    })
+  }
+
+}

@@ -34,7 +34,7 @@ module API
         halt 404 unless record
 
         record.destroy
-        [200, {}, '']
+        [200, {}, '{}']
       end
     end
 

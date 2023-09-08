@@ -48,7 +48,7 @@ class LogEntry < Sequel::Model
   def validate
     super
     errors.add(:severity, "can't be empty") if severity.blank?
-    errors.add(:message, "can't be empty") if message_template.blank?
+    errors.add(:message, "can't be empty") if message.blank?
     unless component.blank?
       errors.add(:component, "doesn't exist") unless Component.where(name: component.upcase).first
     end
