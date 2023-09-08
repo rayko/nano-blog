@@ -48,7 +48,7 @@ window.logEntryTemplates = {
     form = document.createElement('form');
     form.className = 'template-form';
     form.method = 'post';
-    form.action = '/control/api/log-entries';
+    form.action = '/control/api/log-entry-templates/' + record.id;
 
     span = document.createElement('span');
     span.innerHTML = record.id + ' -- ' + record.severity;
@@ -134,17 +134,10 @@ window.logEntryTemplates = {
   postAction: function(event) {
     event.preventDefault();
     formData = new FormData(this);
-    data = {severity: null, component: null, message: ''};
+    data = {};
     for (const attr of formData.entries()) {
-      if (attr[0] == 'severity') { 
-        data.severity = attr[1] 
-      } else if (attr[0] == 'component') { 
-        data.component = attr[1] 
-      } else {
-        data.message += attr[1] + ' ' 
-      }
+      data[attr[0]] = attr[1]
     }
-    data.message = data.message.trim();
     path = this.getAttribute('action');
     targetForm = this;
     apiPOST(path, data, function(data) {
