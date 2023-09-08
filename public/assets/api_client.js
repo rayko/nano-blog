@@ -10,7 +10,8 @@ function apiGET(path, onSuccess, onError) {
     if (response.ok) {
       return response.json();
     } else {
-      return onError(response.status);
+      if (onError) { return onError(response.status) }
+      return flashMessage("Error Status " + response.status, 'alert')
     }
   }).then(function (data) {
     if (data) { onSuccess(data); }
@@ -29,7 +30,8 @@ function apiDELETE(path, onSuccess, onError) {
     if (response.ok) {
       return response.json();
     } else {
-      return onError(response.status);
+      if (onError) { return onError(response.status) }
+      return flashMessage("Error Status " + response.status, 'alert')
     }
   }).then(function (data) {
     if (data) { onSuccess(data); }
@@ -49,7 +51,8 @@ function apiPOST(path, data, onSuccess, onError) {
     if (response.ok) {
       return response.json();
     } else {
-      return onError(response.status);
+      if (onError) { return onError(response.status) }
+      return flashMessage("Error Status " + response.status, 'alert')
     }
   }).then(function (data) {
     if (data) { onSuccess(data); }

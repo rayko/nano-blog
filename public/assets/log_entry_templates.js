@@ -10,11 +10,7 @@ window.logEntryTemplates = {
 
   refresh: function() {
     path = logEntryTemplates.element().getAttribute('data-path');
-    apiGET(path, logEntryTemplates.load, logEntryTemplates.requestError);
-  },
-
-  requestError: function(status) {
-    alert(status);
+    apiGET(path, logEntryTemplates.load);
   },
 
   // Create template, not post from tempalte
@@ -27,9 +23,10 @@ window.logEntryTemplates = {
     };
     path = logEntryTemplates.formElement().getAttribute('action');
     apiPOST(path, data, function(data) {
+      flashMessage('LogEntryTemplate Created!', 'notice');
       logEntryTemplates.refresh();
       logEntryTemplates.formElement().reset();
-    }, logEntryTemplates.requestError);
+    });
   },
 
   load: function(data) {
@@ -145,7 +142,7 @@ window.logEntryTemplates = {
     apiPOST(path, data, function(data) {
       targetForm.reset();
       afterLogEntryPost()
-    }, logEntryTemplates.requestError)
+    })
   },
 
   createAction: function(event) {
@@ -158,6 +155,7 @@ window.logEntryTemplates = {
     targetElement = this.parentElement;
     path = this.getAttribute('href');
     apiDELETE(path, function(data) {
+      flashMessage('LogEntryTemplate Removed!', 'notice');
       targetElement.remove();
     })
   }

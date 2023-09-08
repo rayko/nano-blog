@@ -10,9 +10,10 @@ window.components = {
     };
     path = components.formElement().getAttribute('action');
     apiPOST(path, data, function(data) {
+      flashMessage('Component Created!', 'notice');
       components.refresh();
       components.formElement().reset();
-    }, components.requestError);
+    });
   },
 
   element: function() {
@@ -21,11 +22,7 @@ window.components = {
 
   refresh: function() {
     path = components.element().getAttribute('data-path');
-    apiGET(path, components.load, components.requestError);
-  },
-
-  requestError: function(status) {
-    alert(status);
+    apiGET(path, components.load);
   },
 
   load: function(data) {
@@ -66,6 +63,7 @@ window.components = {
     targetElement = this.parentElement;
     path = this.getAttribute('href');
     apiDELETE(path, function(data) {
+      flashMessage('Component Removed!', 'notice');
       targetElement.remove();
     })
   }

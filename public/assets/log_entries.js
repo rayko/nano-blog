@@ -10,7 +10,7 @@ window.logEntries = {
 
   refresh: function() {
     path = logEntries.element().getAttribute('data-path');
-    apiGET(path, logEntries.loadLast, logEntries.requestError);
+    apiGET(path, logEntries.loadLast);
   },
 
   create: function() {
@@ -22,13 +22,10 @@ window.logEntries = {
     };
     path = logEntries.formElement().getAttribute('action');
     apiPOST(path, data, function(data) {
+      flashMessage('LogEntry Created!', 'notice');
       afterLogEntryPost();
       logEntries.formElement().children.message.value = null;
-    }, logEntries.requestError);
-  },
-
-  requestError: function(status) {
-    alert(status);
+    });
   },
 
   loadLast: function(data) {
@@ -67,6 +64,7 @@ window.logEntries = {
     path = this.getAttribute('href');
     apiDELETE(path, function(data) {
       afterLogEntryPost();
+      flashMessage('LogEntry Removed!', 'notice')
     })
   }
   
