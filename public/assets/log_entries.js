@@ -22,7 +22,7 @@ window.logEntries = {
     };
     path = logEntries.formElement().getAttribute('action');
     apiPOST(path, data, function(data) {
-      logEntries.refresh();
+      afterLogEntryPost();
       logEntries.formElement().children.message.value = null;
     }, logEntries.requestError);
   },
@@ -66,7 +66,7 @@ window.logEntries = {
     targetElement = this.parentElement;
     path = this.getAttribute('href');
     apiDELETE(path, function(data) {
-      logEntries.refresh();
+      afterLogEntryPost();
     })
   }
   

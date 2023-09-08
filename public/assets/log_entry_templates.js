@@ -91,9 +91,11 @@ window.logEntryTemplates = {
         inputName = inputName.replace('}', '');
         variableInput = document.createElement('input');
         variableInput.type = 'text';
+        variableInput.size = 10;
         variableInput.name = inputName;
         variableInput.className = 'template-input-box';
         variableInput.placeholder = inputName + ' ...';
+        variableInput.addEventListener('input', inputAutoSize)
         elements.push(variableInput);
 
       } else {
@@ -142,6 +144,7 @@ window.logEntryTemplates = {
     targetForm = this;
     apiPOST(path, data, function(data) {
       targetForm.reset();
+      afterLogEntryPost()
     }, logEntryTemplates.requestError)
   },
 

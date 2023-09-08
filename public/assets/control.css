@@ -126,5 +126,5 @@ form.template-form .template-input-box {
     border-left: none;
     background-color: transparent;
     border-bottom: 1px dotted gray;
-    width: 8em;
+    font-family: monospace;
 }
