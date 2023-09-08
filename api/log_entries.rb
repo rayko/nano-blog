@@ -25,6 +25,12 @@ module API
         [200, {}, record.to_json]
       end
 
+      get '/log-entries/last-message' do
+        record = LogEntry.last
+        halt 204 unless record
+        [200, {}, {id: record.id, message: record.to_message}.to_json]
+      end
+
       delete '/log-entries/last' do
         record = LogEntry.last
         halt 404 unless record

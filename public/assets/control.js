@@ -12,6 +12,9 @@ function initialize () {
 
   logEntryTemplates.formElement().addEventListener('submit', logEntryTemplates.createAction)
   logEntryTemplates.refresh();
+
+  logEntries.formElement().addEventListener('submit', logEntries.createAction)
+  logEntries.refresh();
 }
 
 function buildTemplateForm(element) {

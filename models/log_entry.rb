@@ -24,7 +24,7 @@ class LogEntry < Sequel::Model
   end
 
   def to_message
-    return "[#{date}] -- #{severity} -> #{message}" unless component.blank?
+    return "[#{date}] -- #{severity} -> #{message}" if component.blank?
     "[#{date}] -- #{severity} -- #{component} -> #{message}"
   end
   

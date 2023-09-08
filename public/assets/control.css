@@ -6,6 +6,10 @@ body {
     padding: 20px;
 }
 
+.record-list pre {
+    display: inline;
+}
+
 .record-list .record-item {
     padding: 10px;
     background-color: #f9e4a9;
