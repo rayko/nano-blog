@@ -1,4 +1,23 @@
 <div class="panel">
   <div class="title">Templates</div>
   <div class="record-list" id="log-entry-template-records" data-path="/control/api/log-entry-templates"></div>
+  <div class="inline-form">
+    <form id="create-log-entry-template-form" class="common-form" action="/control/api/log-entry-templates" method="post">
+      <select name="severity">
+        <% LogEntry::SEVERITIES.each do |item| %>
+        <option value="<%= item %>"><%= item %></option>
+        <% end %>
+      </select>
+
+      <select name="component">
+        <option value="" selected></option>
+        <% Component.all.each do |item| %>
+        <option value="<%= item.name %>"><%= item.name %></option>
+        <% end %>
+      </select>
+
+      <input type="text" id="message_template" name="message_template" placeholder="Message here" size=80>
+      <input type="submit" value="Add">
+    </form>
+  </div>
 </div>

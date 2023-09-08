@@ -13,14 +13,12 @@
 
   <body>
     <div class="main-container">
-      <h1>nanoBlog Control</h1>
-
+      <h1><a href="/" target="_blank">nanoBlog Control</a></h1>
       <div id="flash-container"></div>
-
       <%= erb :_last_entry %>
 
       <div class="form-container">
-        <div class="form-title">Generic Post</div>
+        <div class="form-title">Post Message</div>
         <form id="create-log-entry-form" class="common-form" action="/control/api/log-entries" method="post">
           <select name="severity">
             <% LogEntry::SEVERITIES.each do |item| %>
@@ -40,48 +38,8 @@
         </form>
       </div>
 
-      <div class="columns">
-
-        <div class="column">
-          <div class="form-container">
-            <div class="form-title">Add Component Name</div>
-            <form id="create-component-form" class="common-form" action="/control/api/components" method="post">
-              <input type="text" id="name" name="name" placeholder="Enter name">
-              <input type="submit" value="Add">
-            </form>
-          </div>
-        </div>
-
-        <div class="column">
-          <%= erb :_components_list %>
-        </div>
-
-      </div>
-
-
-      <div class="form-container">
-        <div class="form-title">Add Template</div>
-        <form id="create-log-entry-template-form" class="common-form" action="/control/api/log-entry-templates" method="post">
-          <select name="severity">
-            <% LogEntry::SEVERITIES.each do |item| %>
-              <option value="<%= item %>"><%= item %></option>
-            <% end %>
-          </select>
-
-          <select name="component">
-            <option value="" selected></option>
-            <% Component.all.each do |item| %>
-              <option value="<%= item.name %>"><%= item.name %></option>
-            <% end %>
-          </select>
-
-          <input type="text" id="message_template" name="message_template" placeholder="Message here" size=80>
-          <input type="submit" value="Add">
-        </form>
-      </div>
-
       <%= erb :_log_entry_templates %>
-
+      <%= erb :_components_list %>
     </div>
   </body>
 

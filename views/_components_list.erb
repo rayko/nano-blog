@@ -1,4 +1,10 @@
 <div class="panel">
   <div class="title">Components</div>
   <div class="record-list" id="component-records" data-path="/control/api/components"></div>
+  <div class="inline-form">
+    <form id="create-component-form" class="common-form" action="/control/api/components" method="post">
+      <input type="text" id="name" name="name" placeholder="Enter name">
+      <input type="submit" value="Add">
+    </form>
+  </div>
 </div>
