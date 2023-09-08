@@ -128,3 +128,27 @@ form.template-form .template-input-box {
     border-bottom: 1px dotted gray;
     font-family: monospace;
 }
+
+#flash-container {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    text-align: center;
+    width: 15%;
+}
+
+#flash-container .notice {
+    padding: 10px;
+    background-color: lightgreen;
+    margin: 10px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 6px 4px #00ff004d;
+}
+
+#flash-container .alert {
+    padding: 10px;
+    background-color: darksalmon;
+    margin: 10px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 6px 4px #ff00004d;
+}
