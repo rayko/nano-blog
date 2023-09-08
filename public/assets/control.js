@@ -6,6 +6,9 @@ function initialize () {
   for (let i = 0; i < templates.length; i ++) {
     buildTemplateForm(templates[i]);
   }
+
+  components.formElement().addEventListener('submit', components.createAction);
+  components.refresh();
 }
 
 function buildTemplateForm(element) {

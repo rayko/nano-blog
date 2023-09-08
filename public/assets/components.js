@@ -1,11 +1,27 @@
 window.components = {
+  formElement: function() {
+    return document.getElementById('create-component-form');
+  },
+
+  create: function() {
+    formData = new FormData(components.formElement());
+    data = {
+      name: formData.get('name')
+    };
+    path = components.formElement().getAttribute('action');
+    apiPOST(path, data, function(data) {
+      components.refresh();
+      components.formElement().reset();
+    }, components.requestError);
+  },
+
   element: function() {
     return document.getElementById('component-records');
   },
 
   refresh: function() {
     path = components.element().getAttribute('data-path');
-    apiGET(path, components.load, components.requestError)
+    apiGET(path, components.load, components.requestError);
   },
 
   requestError: function(status) {
@@ -32,7 +48,7 @@ window.components = {
 
     removeLink = document.createElement('a');
     removeLink.className = 'action-link delete';
-    removeLink.setAttribute('href', '#');
+    removeLink.setAttribute('href', '/control/api/components/' + record.id);
     removeLink.innerHTML = 'Remove';
     removeLink.addEventListener('click', components.removeAction);
     container.appendChild(removeLink);
@@ -40,10 +56,18 @@ window.components = {
     return container;
   },
 
+  createAction: function(event) {
+    components.create();
+    event.preventDefault();
+  },
+
   removeAction: function(event) {
-    this.parentElement.remove();
-    alert('Removed');
-    event.preventDefault()
+    event.preventDefault();
+    targetElement = this.parentElement;
+    path = this.getAttribute('href');
+    apiDELETE(path, function(data) {
+      targetElement.remove();
+    })
   }
 }
 
