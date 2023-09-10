@@ -9,6 +9,7 @@ use API::Components
 use API::LogEntries
 use API::LogEntryTemplates
 
+# TODO Return index.html
 get '/' do
   content_type :html
   erb :index
@@ -28,4 +29,16 @@ end
 
 get '/control' do
   redirect '/control/index'
+end
+
+get '/control/' do
+  redirect '/control/index'
+end
+
+# TODO This needs to be behind security
+namespace '/control' do
+  get '/index' do
+    content_type :html
+    erb :control, locals: { store: Store.new }
+  end
 end
