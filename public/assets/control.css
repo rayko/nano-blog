@@ -1,5 +1,14 @@
-body {
+.log-text {
+    font-size: 8pt;
     font-family: "monospace";
+}
+
+.inline-el {
+    display: inline;
+}
+
+body {
+    
 }
 
 .record-list {
@@ -85,7 +94,7 @@ form.delete-record-form  .delete-button {
     background-color: transparent;
     color: blue;
     padding: 0;
-    font-size: 1em;
+    font-size: 8pt;
     text-decoration: underline;
     cursor: pointer;
 }
@@ -95,7 +104,7 @@ form.delete-record-form  .delete-button {
     background-color: transparent;
     color: blue;
     padding: 0;
-    font-size: 1em;
+    font-size: 8pt;
     text-decoration: underline;
     cursor: pointer;
 }
@@ -139,7 +148,7 @@ form.template-form .template-input-box {
     bottom: 0;
     right: 0;
     text-align: center;
-    width: 15%;
+    width: 200px;
 }
 
 #flash-container .notice {

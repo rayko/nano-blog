@@ -39,7 +39,8 @@ window.logEntries = {
     container.className = 'record-item';
     container.setAttribute('data-id', record.id);
 
-    message = document.createElement('pre');
+    message = document.createElement('span');
+    message.className = 'log-text inline-el';
     message.innerHTML = record.message;
     container.appendChild(message);
 

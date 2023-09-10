@@ -16,6 +16,8 @@ function initialize () {
   logEntries.formElement().addEventListener('submit', logEntries.createAction)
   logEntries.refresh();
 
+  document.getElementById('message').addEventListener('input', inputAutoSize);
+
 }
 
 function isEmpty(thing) {

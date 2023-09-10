@@ -48,6 +48,7 @@ window.logEntryTemplates = {
     form.action = '/control/api/log-entry-templates/' + record.id;
 
     span = document.createElement('span');
+    span.className = 'log-text';
     span.innerHTML = record.id + ' -- ' + record.severity;
     if (record.component) {
       span.innerHTML += ' -- ' + record.component;
@@ -75,12 +76,14 @@ window.logEntryTemplates = {
     words = templateMessage.split(' ');
     elements = [];
     span = document.createElement('span');
+    span.className = 'log-text';
     for (let i = 0; i < words.length; i ++) {
       word = words[i];
       if (word.search(regex) >= 0){
         // New span for next words
         elements.push(span);
         span = document.createElement('span');
+        span.className = 'log-text';
         span.innerHTML = ' ';
 
         // Input

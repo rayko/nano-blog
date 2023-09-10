@@ -1,13 +1,14 @@
 body {
     background-color: black;
     color: lawngreen;
-    overflow: hidden;
+    overflow-y: hidden;
+    overflow-x: auto;
 }
 
 pre {
     margin: 0;
     padding: 0;
-    font-size: 1.2em;
+    font-size: 15px;
     text-wrap: wrap !important;
 }
 
@@ -71,7 +72,7 @@ pre {
 .about-container {
     background-color: #101052;
     display: block;
-    width: 40em;
+    width: 380px;
     margin: auto;
     top: 25%;
     position: relative;
@@ -91,7 +92,7 @@ pre {
 }
 
 .about-container .about-content {
-    padding: 20px;
+    padding: 5px;
     position: relative;
     display: flow-root;
 }
@@ -103,7 +104,7 @@ pre {
     padding: 15px 15px 30px 15px;
     background-color: #cdccc2;
     rotate: -3deg;
-    margin-right: 30px;
+    margin-right: 15px;
 }
 
 .portrait img {
@@ -118,6 +119,11 @@ pre {
 
 .blur {
     filter: blur(5px);
+}
+
+.about-content .mastodon-link {
+    margin-top: 25px;
+    text-align: center;
 }
 
 .about-content .mastodon-link img {
