@@ -19,6 +19,17 @@ function getMessages() {
 
 function triggerFeeder () {
   getMessages();
+  window.addEventListener('resize', function(event) {
+    window.scrollTo(0, document.body.scrollHeight)
+  });
+  document.getElementById('about-trigger').addEventListener('click', function() {
+    toggleAbout();
+  });
+
+  document.getElementById('close-about-modal').addEventListener('click', function() {
+    toggleAbout();
+  });
+
 }
 
 function processData(data) {
@@ -29,7 +40,7 @@ function processData(data) {
 
       innerMessage = document.createElement('pre');
       innerMessage.setAttribute('data-hash', data[index].id);
-      innerMessage.setHTML(data[index].message);
+      innerMessage.innerHTML = data[index].message;
       innerMessage.className = severityClassName(data[index].severity)
 
       messageContainer = document.createElement('div');
@@ -50,4 +61,17 @@ function severityClassName(name) {
   if (name == '???') { return 'unknown-level' }
 
   return 'generic-level'
+}
+
+function toggleAbout() {
+  toggleClass(document.getElementById('messages-container'), 'blur');
+  toggleClass(document.getElementById('about-info-modal'), 'hidden');
+}
+
+function toggleClass(element, className) {
+  if (element.className.search(className) >= 0) { 
+    element.className = element.className.replace(className, '');
+  } else {
+    element.className += ' ' + className;
+  }
 }
