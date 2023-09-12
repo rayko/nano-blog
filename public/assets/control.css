@@ -173,3 +173,23 @@ form.template-form .template-input-box {
     border-radius: 5px;
     box-shadow: 0px 0px 6px 4px #ff00004d;
 }
+
+.login-container {
+    position: relative;
+    margin: auto;
+    text-align: center;
+    width: 200px;
+    margin-top: 13%;
+}
+
+.login-container .input-group {
+    text-align: left;
+    position: relative;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: flex;
+}
+
+.login-container .input-group input{
+    width: 100%;
+}

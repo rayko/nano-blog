@@ -41,4 +41,9 @@ namespace '/control' do
     content_type :html
     erb :control, locals: { store: Store.new }
   end
+
+  get '/login' do
+    content_type :html
+    erb :login
+  end
 end
