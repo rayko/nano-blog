@@ -7,16 +7,24 @@ function initialize () {
     buildTemplateForm(templates[i]);
   }
 
-  components.formElement().addEventListener('submit', components.createAction);
-  components.refresh();
+  if (components.formElement()) {
+    components.formElement().addEventListener('submit', components.createAction);
+    components.refresh();
+  }
 
-  logEntryTemplates.formElement().addEventListener('submit', logEntryTemplates.createAction)
-  logEntryTemplates.refresh();
+  if (logEntryTemplates.formElement()) {
+    logEntryTemplates.formElement().addEventListener('submit', logEntryTemplates.createAction)
+    logEntryTemplates.refresh();
+  }
 
-  logEntries.formElement().addEventListener('submit', logEntries.createAction)
-  logEntries.refresh();
+  if (logEntries.formElement()) {
+    logEntries.formElement().addEventListener('submit', logEntries.createAction)
+    logEntries.refresh();
+  }
 
-  document.getElementById('message').addEventListener('input', inputAutoSize);
+  if (document.getElementById('message')) {
+    document.getElementById('message').addEventListener('input', inputAutoSize);
+  }
 
 }
 
