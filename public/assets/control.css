@@ -8,7 +8,14 @@
 }
 
 body {
-    
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+.main-container {
+    padding: 20px;
+    min-width: 800px;
 }
 
 .record-list {
