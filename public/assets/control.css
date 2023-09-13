@@ -1,8 +1,3 @@
-.log-text {
-    font-size: 8pt;
-    font-family: "monospace";
-}
-
 .inline-el {
     display: inline;
 }
@@ -11,6 +6,12 @@ body {
     margin: 0;
     padding: 0;
     width: 100%;
+    font-family: 'monospace';
+    font-size: 8pt;
+}
+
+select {
+    font-family: 'monospace';
 }
 
 .main-container {
