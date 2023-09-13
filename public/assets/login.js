@@ -8,7 +8,7 @@ window.login = {
     formData = new FormData(login.formElement());
     data = { auth: btoa([formData.get('user'), formData.get('password')].join(':')) }
     path = login.formElement().getAttribute('action');
-    apiPOST(path, data, login.success);
+    apiAUTH(path, data, login.success);
   },
 
   success: function(data) {
