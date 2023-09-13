@@ -2,28 +2,28 @@ window.addEventListener('load', initialize, false )
 
 function initialize () {
   console.log('Admin Loaded!');
-  templates = document.getElementsByClassName('template-item');
-  for (let i = 0; i < templates.length; i ++) {
-    buildTemplateForm(templates[i]);
-  }
 
-  if (components.formElement()) {
+  if (window.components && components.formElement()) {
     components.formElement().addEventListener('submit', components.createAction);
     components.refresh();
   }
 
-  if (logEntryTemplates.formElement()) {
+  if (window.logEntryTemplates && logEntryTemplates.formElement()) {
     logEntryTemplates.formElement().addEventListener('submit', logEntryTemplates.createAction)
     logEntryTemplates.refresh();
   }
 
-  if (logEntries.formElement()) {
+  if (window.logEntries && logEntries.formElement()) {
     logEntries.formElement().addEventListener('submit', logEntries.createAction)
     logEntries.refresh();
   }
 
   if (document.getElementById('message')) {
     document.getElementById('message').addEventListener('input', inputAutoSize);
+  }
+
+  if (window.login && login.formElement()){
+    login.formElement().addEventListener('submit', login.submitAction);
   }
 
 }

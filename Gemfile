@@ -8,6 +8,7 @@ gem 'unicorn'
 gem 'rake'
 gem 'sequel'
 gem 'sqlite3'
+gem 'bcrypt'
 
 group :development do
   gem 'byebug'

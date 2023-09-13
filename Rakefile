@@ -36,3 +36,57 @@ task console: :environment do
   ARGV.clear
   IRB.start
 end
+
+desc 'Creates an emergency token for external access'
+task emergency_token: :environment do
+  token = Token.generate!
+  puts token.value
+  puts "Valid until: #{Time.at(token.expires_at)}"
+end
+
+namespace :users do
+  desc 'Creates a user, use as rake users:create <username> <password>'
+  task create: :environment do
+    if ARGV[1].blank?
+      puts 'Missing username'
+      exit 1
+    end
+
+    if ARGV[2].blank?
+      puts 'Missing password'
+      exit 1
+    end
+
+    user = User.new
+    user.username = ARGV[1].strip
+    user.set_password(ARGV[2].strip)
+
+    if User.where(username: user.username).first
+      puts 'Already exists'
+      exit 1
+    end
+
+    user.save
+    
+    puts "Created new user: #{user.username}"
+    exit 0
+  end
+
+  desc 'Removes a user, use as rake users:remove <username>'
+  task remove: :environment do
+    if ARGV[1].blank?
+      puts 'Missing username'
+      exit 1
+    end
+
+    user = User.where(username: ARGV[1].strip).first
+    unless user
+      puts 'Not found'
+      exit 1
+    end
+
+    user.destroy
+    puts "User: #{user.username} removed!"
+    exit 0
+  end
+end

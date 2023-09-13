@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <title>NanoBlog Control</title>
     <script src="/assets/api_client.js"></script>
-    <script src="/assets/components.js"></script>
-    <script src="/assets/log_entry_templates.js"></script>
-    <script src="/assets/log_entries.js"></script>
+    <script src="/assets/login.js"></script>
     <script src="/assets/control.js"></script>
     <link href="/assets/control.css" rel="stylesheet">
     <link rel="icon" type="image/png" href="/favicon.png">
@@ -19,7 +17,7 @@
 
       <div class="form-container">
         <div class="form-title">Login</div>
-        <form id="login" class="common-form" action="/control/api/authenticate" method="post">
+        <form id="login-form" class="common-form" action="/control/api/authenticate" method="post">
           <div class="input-group">
             <input type="text" id="user" name="user" placeholder="username">
           </div>

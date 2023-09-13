@@ -5,13 +5,15 @@ class Schema
   DB_FILE = File.join(DB_DIR, 'nanoBlog.db').freeze
 
   def initialize
-    Dir.mkdir(DB_DIR) unless Dir.exist?(DB_DIR)    
+    Dir.mkdir(DB_DIR) unless Dir.exist?(DB_DIR)
   end
 
   def setup!
     setup_components!
     setup_log_entries!
     setup_log_entry_templates!
+    setup_users!
+    setup_tokens!
   end
 
   def db
@@ -19,6 +21,30 @@ class Schema
   end
 
   private
+
+  def setup_tokens!
+    name = :tokens
+    return nil if db.table_exists?(name)
+
+    puts "Missing table #{name}, creating ..."
+    db.create_table(name) do
+      primary_key :id
+      String :value
+      Integer :expires_at
+    end
+  end
+
+  def setup_users!
+    name = :users
+    return nil if db.table_exists?(name)
+
+    puts "Missing table #{name}, creating ..."
+    db.create_table(name) do
+      primary_key :id
+      String :username
+      String :password
+    end
+  end
 
   def setup_log_entry_templates!
     name = :log_entry_templates

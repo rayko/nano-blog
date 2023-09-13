@@ -8,6 +8,7 @@ set :public_folder, './public'
 use API::Components
 use API::LogEntries
 use API::LogEntryTemplates
+use API::Authenticate
 
 # TODO Return index.html
 get '/' do
