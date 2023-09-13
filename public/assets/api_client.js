@@ -14,7 +14,7 @@ function apiGET(path, onSuccess, onError) {
       return response.json();
     } else {
       if (onError) { return onError(response.status) }
-      return flashMessage("Error Status " + response.status, 'alert')
+      if (window.genericAPIErrorHandler) { return window.genericAPIErrorHandler(response.status) }
     }
   }).then(function (data) {
     if (data) { onSuccess(data); }
@@ -35,7 +35,7 @@ function apiDELETE(path, onSuccess, onError) {
       return response.json();
     } else {
       if (onError) { return onError(response.status) }
-      return flashMessage("Error Status " + response.status, 'alert')
+      if (window.genericAPIErrorHandler) { return window.genericAPIErrorHandler(response.status) }
     }
   }).then(function (data) {
     if (data) { onSuccess(data); }
@@ -57,7 +57,7 @@ function apiPOST(path, data, onSuccess, onError) {
       return response.json();
     } else {
       if (onError) { return onError(response.status) }
-      return flashMessage("Error Status " + response.status, 'alert')
+      if (window.genericAPIErrorHandler) { return window.genericAPIErrorHandler(response.status) }
     }
   }).then(function (data) {
     if (data) { onSuccess(data); }
@@ -78,7 +78,7 @@ function apiAUTH(path, data, onSuccess, onError) {
       return response.json();
     } else {
       if (onError) { return onError(response.status) }
-      return flashMessage("Error Status " + response.status, 'alert')
+      if (window.genericAPIErrorHandler) { return window.genericAPIErrorHandler(response.status) }
     }
   }).then(function (data) {
     if (data) { onSuccess(data); }

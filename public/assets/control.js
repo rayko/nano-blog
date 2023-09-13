@@ -25,7 +25,14 @@ function initialize () {
   if (window.login && login.formElement()){
     login.formElement().addEventListener('submit', login.submitAction);
   }
+}
 
+function genericAPIErrorHandler(statusCode) {
+  if (statusCode == 401) {
+    window.location = '/control/login';
+  } else {
+    flashMessage("Error Status " + response.status, 'alert');
+  }
 }
 
 function isEmpty(thing) {

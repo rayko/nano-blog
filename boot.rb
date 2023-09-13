@@ -35,6 +35,7 @@ require 'init_procedure'
 require 'json_payload'
 require 'auth'
 require 'extensions/blank'
+require 'auth_middleware'
 
 # Models
 require 'models/log_entry'
@@ -44,6 +45,7 @@ require 'models/user'
 require 'models/token'
 
 # Controllers ¿?
+require 'website'
 require 'api/components'
 require 'api/log_entries'
 require 'api/log_entry_templates'

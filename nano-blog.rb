@@ -5,10 +5,10 @@ set :default_content_type, 'application/json'
 set :views, './views'
 set :public_folder, './public'
 
-use API::Components
-use API::LogEntries
-use API::LogEntryTemplates
-use API::Authenticate
+# use API::Components
+# use API::LogEntries
+# use API::LogEntryTemplates
+# use API::Authenticate
 
 # TODO Return index.html
 get '/' do
