@@ -39,7 +39,6 @@ require 'sequel'
 require 'bcrypt'
 
 # Lib stuff
-require 'init_procedure'
 require 'json_payload'
 require 'auth'
 require 'auth_middleware'

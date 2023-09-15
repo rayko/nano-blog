@@ -19,6 +19,7 @@ end
 
 desc 'Writes some log entries on boot'
 task run_init: :environment do
+  require 'init_procedure'
   InitProcedure.new.run!
 end
 

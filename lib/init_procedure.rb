@@ -1,32 +1,23 @@
 class InitProcedure
   def run!
-    blog = NBLogger.new
-    store = Store.new
-    unless store.system_names.include? 'MONITOR'
-      store.add_system_name! 'MONITOR'
-    end
+    default_component = CONFIG.default_component
 
-    blog.append "Initializing ...", 'INFO', 'MONITOR'
+    LogEntry.create severity: LogEntry::INFO, component: default_component, message: "Initializing ..."
     rand_wait
-    blog.append 'Loading internal information ...', 'INFO', 'MONITOR'
+    LogEntry.create severity: LogEntry::INFO, component: default_component, message: "Loading internal information ..."
     rand_wait
-    blog.append 'Loading systems ...', 'INFO', 'MONITOR'
+    LogEntry.create severity: LogEntry::INFO, component: default_component, message: "Loading systems ..."
     rand_wait
-    blog.append "Systems loaded: #{store.system_names.join(', ')}", 'INFO', 'MONITOR'
-    blog.append "Locking target subject ...", 'INFO', 'MONITOR'
+    LogEntry.create severity: LogEntry::INFO, component: default_component, message: "Systems loaded: #{Component.all.map(&:name).join(', ')}"
+    LogEntry.create severity: LogEntry::INFO, component: default_component, message: "Locking target subject ..."
     rand_wait
-    blog.append "Subject: #{store.subject_info['name']}", 'INFO', 'MONITOR'
-    if store.subject_info['name'] == 'UNKNOWN'
-      blog.append "Unable to target subject", 'ERROR', 'MONITOR'
-      blog.append "Unable to monitor", 'ERROR', 'MONITOR'
-      blog.append "Unable to find purpose", 'CRITICAL', 'MONITOR'
-    else
-      blog.append "Establishing communications channel ...", 'INFO', 'MONITOR'
-      rand_wait
-      blog.append "Opening broadcasting ...", 'INFO', 'MONITOR'
-      rand_wait
-      blog.append "Fully operational, all systems up, good day world!", 'INFO', 'MONITOR'
-    end
+    LogEntry.create severity: LogEntry::INFO, component: default_component, message: "Subject: #{CONFIG.subject}"
+    LogEntry.create severity: LogEntry::INFO, component: default_component, message: "Establishing communications channel ..."
+    rand_wait
+    LogEntry.create severity: LogEntry::INFO, component: default_component, message: "Establishing communications channel ..."
+    LogEntry.create severity: LogEntry::INFO, component: default_component, message: "Opening broadcasting ..."
+    rand_wait
+    LogEntry.create severity: LogEntry::INFO, component: default_component, message: "Fully operational, all systems up, good day world!"
     nil
   end
 
