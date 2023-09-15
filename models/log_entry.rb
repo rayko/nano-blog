@@ -58,5 +58,6 @@ class LogEntry < Sequel::Model
     super
     self.component = self.component.upcase unless self.component.blank?
     self.severity = self.severity.upcase
+    self.timestamp ||= Time.now.to_i
   end
 end
