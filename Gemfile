@@ -12,4 +12,5 @@ gem 'bcrypt'
 
 group :development do
   gem 'byebug'
+  gem 'dotenv'
 end

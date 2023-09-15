@@ -7,42 +7,53 @@ require 'digest'
 require 'json'
 require 'base64'
 
-# Some defs
 APP_ENV = ENV['APP_ENV'] || 'development'
 APP_PATH = File.dirname(__FILE__)
-LOG_LEVEL = (ENV['LOG_LEVEL'] || '0').to_i
-LOGGER = Logger.new('log/nano-blog.log')
-LOGGER.level = LOG_LEVEL
 
-DB_DIR = 'db/'.freeze
-DB_FILE = File.join(DB_DIR, 'nanoBlog.db').freeze
-
-Bundler.setup(:default, APP_ENV.to_sym)
 $LOAD_PATH.unshift File.join(APP_PATH, 'lib')
 $LOAD_PATH.unshift File.join(APP_PATH)
+
+require 'extensions/blank'
+require 'configs'
+
+Object.include(Extensions::Blank)
+
+# Bundler.setup(:default, APP_ENV.to_sym)
+Bundler.require(:default)
+Bundler.require(:development) if APP_ENV == 'development'
+Bundler.require(:test) if APP_ENV == 'test'
+
+if APP_ENV == 'development'
+  Dotenv.load ".env.local"
+end
+
+# Some defs
+CONFIG = Configs.new
+LOGGER = Logger.new('log/nano-blog.log')
+LOGGER.level = CONFIG.log_level
+DB_FILE = File.join('db', ['nanoBlog', APP_ENV, 'db'].join('.'))
 
 # App core
 require 'sqlite3'
 require 'sequel'
 require 'bcrypt'
 
-Sequel.sqlite(DB_FILE)
-
 # Lib stuff
-require 'nblogger'
-require 'store'
 require 'init_procedure'
 require 'json_payload'
 require 'auth'
-require 'extensions/blank'
 require 'auth_middleware'
 
-# Models
-require 'models/log_entry'
-require 'models/component'
-require 'models/log_entry_template'
-require 'models/user'
-require 'models/token'
+# Models if DB exists
+if File.exist? DB_FILE
+  Sequel.sqlite(DB_FILE)
+
+  require 'models/log_entry'
+  require 'models/component'
+  require 'models/log_entry_template'
+  require 'models/user'
+  require 'models/token'
+end
 
 # Controllers ¿?
 require 'website'
@@ -51,4 +62,3 @@ require 'api/log_entries'
 require 'api/log_entry_templates'
 require 'api/authenticate'
 
-Object.include(Extensions::Blank)

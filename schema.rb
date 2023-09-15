@@ -1,11 +1,8 @@
 # This is to specifically setup database.
 
 class Schema
-  DB_DIR = 'db/'.freeze
-  DB_FILE = File.join(DB_DIR, 'nanoBlog.db').freeze
-
   def initialize
-    Dir.mkdir(DB_DIR) unless Dir.exist?(DB_DIR)
+    Dir.mkdir('./db') unless Dir.exist?('./db')
   end
 
   def setup!
@@ -61,6 +58,7 @@ class Schema
 
   def setup_components!
     name = :components
+    default_component = CONFIG.default_component
     return nil if db.table_exists?(name)
 
     puts "Missing table #{name}, creating ..."
@@ -68,7 +66,7 @@ class Schema
       primary_key :id
       String :name
     end
-    db[name].insert(name: 'MONITOR') unless db[name].where(name: 'MONITOR').any?
+    db[name].insert(name: default_component) unless db[name].where(name: default_component).any?
   end
 
   def setup_log_entries!
@@ -89,7 +87,7 @@ class Schema
     db[name].insert(timestamp: Time.now.to_i, severity: 'INFO', message: 'Database created!')
     db[name].insert(timestamp: Time.now.to_i, severity: 'INFO', message: 'Registering component: MONITOR')
     sleep(1)
-    db[name].insert(timestamp: Time.now.to_i, severity: 'INFO', component: 'MONTOR', message: 'Up and ready!')
+    db[name].insert(timestamp: Time.now.to_i, severity: 'INFO', component: CONFIG.default_component, message: 'Up and ready!')
   end
 
 end

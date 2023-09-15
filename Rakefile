@@ -9,15 +9,10 @@ end
 
 namespace :db do
   desc 'Setups database if not existent and loads initial data'
-  task :setup do
+  task setup: :environment do
     puts 'Setting up database ... '
-
-    require 'sqlite3'
-    require 'sequel'
-    load 'schema.rb'
-
+    require 'schema'
     Schema.new.setup!
-
     puts 'Database Ready!'
   end
 end

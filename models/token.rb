@@ -4,7 +4,7 @@ class Token < Sequel::Model
     def generate!
       record = new
       record.value = SecureRandom.urlsafe_base64(64)
-      record.expires_at = (Time.now + 86400).to_i
+      record.expires_at = (Time.now + CONFIG.token_ttl).to_i
       record.save
 
       record
