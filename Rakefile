@@ -1,7 +1,5 @@
 task default: :console
 
-
-
 desc 'Loads the environment for the application'
 task :environment do
   require File.join(File.dirname(__FILE__), 'boot')
@@ -15,12 +13,6 @@ namespace :db do
     Schema.new.setup!
     puts 'Database Ready!'
   end
-end
-
-desc 'Writes some log entries on boot'
-task run_init: :environment do
-  require 'init_procedure'
-  InitProcedure.new.run!
 end
 
 desc 'Opens a console to interact with the application'
@@ -84,5 +76,18 @@ namespace :users do
     user.destroy
     puts "User: #{user.username} removed!"
     exit 0
+  end
+end
+
+namespace :messages do
+  desc 'Writes some log entries on boot'
+  task init: :environment do
+    require 'init_procedure'
+    InitProcedure.new.run!
+  end
+
+  desc 'Shutdown message trigger'
+  task shutdown: :environment do
+    LogEntry.create severity: LogEntry::WARN, component: CONFIG.default_component, message: 'Shutdown signal received. Shutting down'
   end
 end

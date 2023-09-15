@@ -14,7 +14,6 @@ class InitProcedure
     LogEntry.create severity: LogEntry::INFO, component: default_component, message: "Subject: #{CONFIG.subject}"
     LogEntry.create severity: LogEntry::INFO, component: default_component, message: "Establishing communications channel ..."
     rand_wait
-    LogEntry.create severity: LogEntry::INFO, component: default_component, message: "Establishing communications channel ..."
     LogEntry.create severity: LogEntry::INFO, component: default_component, message: "Opening broadcasting ..."
     rand_wait
     LogEntry.create severity: LogEntry::INFO, component: default_component, message: "Fully operational, all systems up, good day world!"
