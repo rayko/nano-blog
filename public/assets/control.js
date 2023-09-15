@@ -31,7 +31,7 @@ function genericAPIErrorHandler(statusCode) {
   if (statusCode == 401) {
     window.location = '/control/login';
   } else {
-    flashMessage("Error Status " + response.status, 'alert');
+    flashMessage("Error Status " + statusCode, 'alert');
   }
 }
 

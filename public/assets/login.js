@@ -8,7 +8,12 @@ window.login = {
     formData = new FormData(login.formElement());
     data = { auth: btoa([formData.get('user'), formData.get('password')].join(':')) }
     path = login.formElement().getAttribute('action');
-    apiAUTH(path, data, login.success);
+    apiAUTH(path, data, login.success, login.handleLoginError);
+  },
+
+  handleLoginError: function(data) {
+    login.formElement().reset();
+    genericAPIErrorHandler(data);
   },
 
   success: function(data) {
