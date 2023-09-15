@@ -1,10 +1,5 @@
-worker_processes 4
+worker_processes (ENV['UNICORN_WORKERS'] || '2').to_i
 working_directory "." # available in 0.94.0+
 listen 8080, :tcp_nopush => true
-timeout 30
+timeout (ENV['UNICORN_TIMEOUT'] || '30').to_i
 preload_app true
-
-# before_exec do |server|
-#   ENV['BUNDLE_GEMFILE'] = "Gemfile"
-# end
-
