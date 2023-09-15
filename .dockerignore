@@ -1,0 +1,16 @@
+# Do not push these files into docker build
+
+# Git, temp and log folders
+.git
+tmp
+log
+
+# Ignore any other .log file 
+**/*.log
+
+# Emacs temp files
+**/*~
+**/#*
+
+# Ignore ./.bundle
+.bundle
