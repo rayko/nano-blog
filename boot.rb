@@ -29,7 +29,7 @@ end
 
 # Some defs
 CONFIG = Configs.new
-LOGGER = Logger.new('log/nano-blog.log')
+LOGGER = Logger.new(STDOUT)
 LOGGER.level = CONFIG.log_level
 DB_FILE = File.join('db', ['nanoBlog', APP_ENV, 'db'].join('.'))
 
