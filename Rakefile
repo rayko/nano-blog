@@ -8,10 +8,10 @@ end
 namespace :db do
   desc 'Setups database if not existent and loads initial data'
   task setup: :environment do
-    puts 'Setting up database ... '
+    LOGGER.info 'Setting up database ... '
     require 'schema'
     Schema.new.setup!
-    puts 'Database Ready!'
+    LOGGER.info 'Database Ready!'
   end
 end
 
