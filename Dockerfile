@@ -16,4 +16,4 @@ RUN su deployer -c "bundle config set --local deployment 'true'" && \
 
 EXPOSE 8080
 USER deployer:deployer
-ENTRYPOINT ["./launch.sh"]
+CMD ["./launch.sh"]
