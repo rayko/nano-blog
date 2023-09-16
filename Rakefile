@@ -13,6 +13,18 @@ namespace :db do
     Schema.new.setup!
     LOGGER.info 'Database Ready!'
   end
+
+  desc 'Exports all data as CSV under ./db dir'
+  task export: :environment do
+    require 'db_exporter'
+    DBExporter.new.export!
+  end
+
+  desc 'Imports data from existing CSV files under ./db'
+  task import: :environment do
+    require 'db_importer'
+    DBImporter.new.import!
+  end
 end
 
 desc 'Opens a console to interact with the application'
