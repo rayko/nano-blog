@@ -8,8 +8,7 @@
 .watchr
 .redcar
 .project
-db/*.sqlite3
-db/structure.sql
+db/*
 *.db
 log/*.log*
 tmp/*
