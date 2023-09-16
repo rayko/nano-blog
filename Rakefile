@@ -81,10 +81,9 @@ end
 
 namespace :messages do
   desc 'Writes some log entries on boot'
-  task init: :environment do
-    require 'init_procedure'
+  task launch: :environment do
+    LogEntry.create severity: LogEntry::INFO, component: CONFIG.default_component, message: 'Starting up'
     LOGGER.info 'Launching'
-    InitProcedure.new.run!
   end
 
   desc 'Shutdown message trigger'

@@ -1,7 +1,7 @@
 #!/bin/sh
 
 bundle exec rake db:setup
-bundle exec rake messages:init
+bundle exec rake messages:launch
 
 #Trap SIGTERM
 trap 'true' SIGTERM
