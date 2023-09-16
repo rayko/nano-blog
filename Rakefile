@@ -6,6 +6,18 @@ task :environment do
 end
 
 namespace :db do
+  desc 'Full DB reset by exporting, setup and import'
+  task :reset do
+    require_relative 'lib/schema'
+    Rake::Task['db:export'].invoke
+
+    LOGGER.info 'Setting up database ... '
+    Schema.new(true).setup!
+    LOGGER.info 'Database Ready!'
+
+    Rake::Task['db:import'].invoke
+  end
+
   desc 'Setups database if not existent and loads initial data'
   task setup: :environment do
     LOGGER.info 'Setting up database ... '

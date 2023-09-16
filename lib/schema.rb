@@ -1,8 +1,9 @@
 # This is to specifically setup database.
 
 class Schema
-  def initialize
+  def initialize(reset = false)
     Dir.mkdir('./db') unless Dir.exist?('./db')
+    @reset = reset
   end
 
   def setup!
@@ -21,7 +22,11 @@ class Schema
 
   def setup_tokens!
     name = :tokens
-    return nil if db.table_exists?(name)
+    if db.table_exists?(name)
+      return nil unless @reset
+      puts "Resetting #{name}"
+      db.drop_table(name)
+    end
 
     puts "Missing table #{name}, creating ..."
     db.create_table(name) do
@@ -33,7 +38,11 @@ class Schema
 
   def setup_users!
     name = :users
-    return nil if db.table_exists?(name)
+    if db.table_exists?(name)
+      return nil unless @reset
+      puts "Resetting #{name}"
+      db.drop_table(name)
+    end
 
     puts "Missing table #{name}, creating ..."
     db.create_table(name) do
@@ -45,7 +54,11 @@ class Schema
 
   def setup_log_entry_templates!
     name = :log_entry_templates
-    return nil if db.table_exists?(name)
+    if db.table_exists?(name)
+      return nil unless @reset
+      puts "Resetting #{name}"
+      db.drop_table(name)
+    end
 
     puts "Missing table #{name}, creating ..."
     db.create_table(name) do
@@ -59,7 +72,11 @@ class Schema
   def setup_components!
     name = :components
     default_component = CONFIG.default_component
-    return nil if db.table_exists?(name)
+    if db.table_exists?(name)
+      return nil unless @reset
+      puts "Resetting #{name}"
+      db.drop_table(name)
+    end
 
     puts "Missing table #{name}, creating ..."
     db.create_table(name) do
@@ -71,7 +88,11 @@ class Schema
 
   def setup_log_entries!
     name = :log_entries
-    return nil if db.table_exists?(name)
+    if db.table_exists?(name)
+      puts "Resetting #{name}"
+      return nil unless @reset
+      db.drop_table(name)
+    end
 
     puts "Missing table #{name}, creating ..."
     db.create_table(name) do
