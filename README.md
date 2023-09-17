@@ -46,6 +46,8 @@ By the way the user `1000:1000` is the ID and group ID of the internal user in t
 There a `launch.sh` script that automatically setups the DB and runs the webserver, which is the main container
 command, so doing `docker-compose up` should be enough to get it up and running.
 
+Create an `.env.production` file and fill in the configs for production.
+
 To create a user in the container build you can use:
 
 ```
