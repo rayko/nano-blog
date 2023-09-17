@@ -38,7 +38,7 @@ class Website < Sinatra::Base
   namespace '/control' do
     get '/index' do
       content_type :html
-      erb :control, locals: { store: Store.new }
+      erb :control
     end
 
     get '/login' do
