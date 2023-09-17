@@ -1,0 +1,11 @@
+version: '3'
+services:
+  web:
+    build: .
+    image: nano-blog:build1
+    restart: always
+    env_file: .env.production
+    ports:
+      - '127.0.0.1:8080:8080'
+    volumes:
+      - ./container/db:/home/deployer/application/db
